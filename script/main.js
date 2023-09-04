@@ -1,6 +1,6 @@
 /** @type {HTMLCanvasElement} */
 
-const canvas = document.querySelector("canvas")
+const canvas = document.getElementById("main")
 const ctx = canvas.getContext("2d")
 canvas.width = 1920
 canvas.height = canvas.width * (9 / 16)

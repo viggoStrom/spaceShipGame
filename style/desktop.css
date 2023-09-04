@@ -13,7 +13,7 @@ body {
     align-items: center;
 }
 
-canvas {
+#main {
     max-height: 95vh;
     max-width: 95vw;
     aspect-ratio: 16/9;
@@ -22,4 +22,11 @@ canvas {
 
     background-image: url("../assets/images/quick-ps-6CsREDPUK3Y-unsplash.jpg");
     background-size: contain;
+}
+
+#plot{
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: white;
 }

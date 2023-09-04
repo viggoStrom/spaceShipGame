@@ -1,6 +1,6 @@
 /** @type {HTMLCanvasElement} */
 
-canvas = document.querySelector("canvas")
+canvas = document.getElementById("main")
 
 
 class baseTurret {
