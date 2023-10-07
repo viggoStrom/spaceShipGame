@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,13 +11,23 @@
 
     <link rel="shortcut icon" href="assets/images/spaceGameLogo.png" type="image/x-icon">
 </head>
+
 <body>
-    <canvas id="plot"></canvas>
     <canvas id="main"></canvas>
-    
+
+    <div class="" style="color: white; display: flex; flex-flow: row nowrap; width: 100%; justify-content: space-evenly;">
+        <p style="margin-top: 1vh;">Vx: <span>0</span> px/frame</p>
+        <p style="margin-top: 1vh;">Vy: <span>0</span> px/frame</p>
+        <p style="margin-top: 1vh;">Px: <span>0</span> px</p>
+        <p style="margin-top: 1vh;">Py: <span>0</span> px</p>
+        <p style="margin-top: 1vh;">RotV: <span>0</span> rad/frame</p>
+        <p style="margin-top: 1vh;">Rot: <span>0</span> rad</p>
+    </div>
+
     <script src="script/turrets.js"></script>
     <script src="script/ships.js"></script>
+    <script src="script/control.js"></script>
     <script src="script/main.js"></script>
-    <script src="script/plot.js"></script>
 </body>
+
 </html>

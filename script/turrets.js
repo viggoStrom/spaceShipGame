@@ -4,7 +4,7 @@ canvas = document.getElementById("main")
 
 
 class baseTurret {
-    constructor(x, y, offset = { x: 0, y: 0 }, dir = { limit: [-180, 180], initial: 0 }, specs = { damage: 0, powerDraw: 0, ionDamage: 0 }) {
+    constructor(x, y, offset = { x: 0, y: 0 }, dir = { limit: [-Math.PI, Math.PI], initial: 0 }, specs = { damage: 0, powerDraw: 0, ionDamage: 0 }) {
         const self = this
         this.lastMouse = [10000, 1000]
         this.specs = specs
@@ -18,19 +18,13 @@ class baseTurret {
         }
         this.rot = {
             vel: 0,
-            acc: 1,
-            topVel: 0,
+            acc: 0.01,
+            topVel: 0.45,
             limit: {
-                deg: dir.limit,
-                rad() {
-                    return [(self.rot.limit.deg[0] * Math.PI) / 180, (self.rot.limit.deg[1] * Math.PI) / 180]
-                },
+                rad: dir.limit,
             },
             offset: dir.initial,
-            deg: dir.initial,
-            rad() {
-                return (self.rot.deg * Math.PI) / 180
-            },
+            rad: dir.initial,
         }
 
         this.tool = {
@@ -38,7 +32,7 @@ class baseTurret {
                 ctx.save()
                 ctx.beginPath()
                 ctx.translate(self.x.pos, self.y.pos)
-                ctx.rotate(self.rot.rad() + self.rot.offset)
+                ctx.rotate(self.rot.rad + self.rot.offset)
                 ctx.roundRect(x - self.x.pos, y - self.y.pos, w, h, corner)
                 ctx.closePath()
                 ctx.fill()
@@ -48,7 +42,7 @@ class baseTurret {
                 ctx.save()
                 ctx.beginPath()
                 ctx.translate(self.x.pos, self.y.pos)
-                ctx.rotate(self.rot.rad() + self.rot.offset)
+                ctx.rotate(self.rot.rad + self.rot.offset)
             },
             closePath() {
                 ctx.closePath()
@@ -68,9 +62,9 @@ class baseTurret {
         const deltaY = y * (canvas.height / computedCanvasHeight) - this.y.pos
 
         if (deltaX < 0) {
-            this.rot.deg = ((Math.atan(deltaY / deltaX) - Math.PI) * 180) / Math.PI
+            this.rot.rad = Math.atan(deltaY / deltaX) - Math.PI
         } else {
-            this.rot.deg = (Math.atan(deltaY / deltaX) * 180) / Math.PI
+            this.rot.rad = Math.atan(deltaY / deltaX)
         }
     }
 
@@ -109,7 +103,7 @@ class baseTurret {
         // Arrow
         ctx.beginPath()
         ctx.moveTo(this.x.pos, this.y.pos)
-        ctx.lineTo(this.x.pos + Math.cos(this.rot.rad()) * 70, this.y.pos + Math.sin(this.rot.rad()) * 70)
+        ctx.lineTo(this.x.pos + Math.cos(this.rot.rad) * 70, this.y.pos + Math.sin(this.rot.rad()) * 70)
         ctx.strokeStyle = "red"
         ctx.lineWidth = 7
         ctx.lineCap = "round"
@@ -119,8 +113,8 @@ class baseTurret {
         // Firing Arc
         ctx.beginPath()
         ctx.moveTo(this.x.pos, this.y.pos)
-        ctx.arc(this.x.pos, this.y.pos, 100, this.rot.limit.rad()[0] + this.rot.offset, 0)
-        ctx.arc(this.x.pos, this.y.pos, 100, this.rot.offset, this.rot.limit.rad()[1])
+        ctx.arc(this.x.pos, this.y.pos, 100, this.rot.limit.rad[0] + this.rot.offset, 0)
+        ctx.arc(this.x.pos, this.y.pos, 100, this.rot.offset, this.rot.limit.rad[1])
         ctx.fillStyle = "red"
         ctx.globalAlpha = 0.4
         ctx.fill()
