@@ -6,8 +6,9 @@ canvas.width = 1920
 canvas.height = canvas.width * (9 / 16)
 const updateBuffer = []
 
-const testShip = new baseShip(600, 300)
-updateBuffer.push(testShip)
+const testPlayer = new Player("Viggo")
+const venatorClassStarDestroyer = new BaseShip(900, 500)
+testPlayer.possess(venatorClassStarDestroyer)
 
 const frame = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)

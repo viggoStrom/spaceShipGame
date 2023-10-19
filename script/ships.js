@@ -3,9 +3,14 @@
 canvas = document.getElementById("main")
 
 
-class baseShip {
+class BaseShip {
     constructor(x, y, direction = 0) {
-        const self = this
+        updateBuffer.push(this)
+
+        const self = this        
+        
+        this.skin = new Image()
+        this.skin.src = "./assets/ships/VenatorClassStarDestroyer.png"
 
         this.x = {
             pos: x,
@@ -175,23 +180,9 @@ class baseShip {
     }
 
     draw() {
-        ctx.fillStyle = "rgb(100,100,100)"
-        ctx.strokeStyle = ctx.fillStyle
-        ctx.lineWidth = 20
-        ctx.lineCap = "round"
-        ctx.lineJoin = "round"
-
-
         ctx.moveTo(this.x.pos, this.y.pos)
         this.tool.beginPath()
-        ctx.lineTo(0, 0)
-        ctx.lineTo(+190, 0)
-        ctx.lineTo(-70, -100)
-        ctx.lineTo(-70, +100)
-        ctx.lineTo(+190, 0)
-        ctx.lineTo(0, 0)
-        ctx.stroke()
-        ctx.fill()
+        ctx.drawImage(this.skin, 0-180, 0-113)
         this.tool.closePath()
     }
 
@@ -223,23 +214,13 @@ class baseShip {
         ctx.fill()
         ctx.closePath()
 
-        // Forward
-        // ctx.beginPath()
-        // ctx.moveTo(this.x.pos, this.y.pos)
-        // ctx.lineTo(this.x.pos + Math.cos(this.rot.rad()) * 130, this.y.pos + Math.sin(this.rot.rad()) * 130)
-        // ctx.strokeStyle = "purple"
-        // ctx.lineWidth = 6
-        // ctx.lineCap = "round"
-        // ctx.stroke()
-        // ctx.closePath()
-
         // X velocity
         ctx.beginPath()
         ctx.moveTo(this.x.pos, this.y.pos)
         ctx.lineTo(this.x.pos + this.x.vel * 100, this.y.pos)
+        ctx.lineCap = "round"
         ctx.strokeStyle = "green"
         ctx.lineWidth = 8
-        ctx.lineCap = "round"
         ctx.stroke()
         ctx.closePath()
 
@@ -247,9 +228,9 @@ class baseShip {
         ctx.beginPath()
         ctx.moveTo(this.x.pos, this.y.pos)
         ctx.lineTo(this.x.pos, this.y.pos + this.y.vel * 100)
-        ctx.strokeStyle = "blue"
         ctx.lineWidth = 8
         ctx.lineCap = "round"
+        ctx.strokeStyle = "blue"
         ctx.stroke()
         ctx.closePath()
     }
